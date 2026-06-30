@@ -70,6 +70,28 @@ export const appRouter = router({
         // Send confirmation email to registrant
         await sendConfirmationEmail(input.email, input.name, input);
 
+        // Forward to Google Sheet Webhook if configured
+        const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK;
+        if (sheetWebhook && sheetWebhook.trim()) {
+          try {
+            await fetch(sheetWebhook.trim(), {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: input.name,
+                company: input.company,
+                title: input.title,
+                phone: input.phone,
+                email: input.email,
+                createdAt: new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" }),
+              }),
+            });
+            console.log("[GoogleSheet] Successfully forwarded registration to Google Sheet.");
+          } catch (err) {
+            console.error("[GoogleSheet] Failed to forward to Google Sheet:", err);
+          }
+        }
+
         return { success: true };
       }),
 
