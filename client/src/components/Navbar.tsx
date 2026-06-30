@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "關於活動", href: "#hero" },
-  { label: "主講嘉賓", href: "#dean-avatar" },
+  { label: "主要嘉賓", href: "#dean-avatar" },
   { label: "議程總覽", href: "#agenda" },
   { label: "核心痛點", href: "#problem" },
   { label: "實務解方", href: "#solution" },
