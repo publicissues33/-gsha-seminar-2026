@@ -1,6 +1,9 @@
-import { Wind } from "lucide-react";
+import { useState } from "react";
+import { Wind, X } from "lucide-react";
 
 export default function SolutionSection() {
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+
   return (
     <section
       id="solution"
@@ -32,7 +35,8 @@ export default function SolutionSection() {
             <img
               src="/回潮效應1.png"
               alt="回潮效應"
-              className="w-full h-auto object-contain rounded-xl"
+              onClick={() => setZoomedImage("rebound")}
+              className="w-full h-auto object-contain rounded-xl cursor-zoom-in hover:opacity-95 transition-opacity"
             />
           </div>
         </div>
@@ -65,11 +69,34 @@ export default function SolutionSection() {
             <img
               src="/技術原理.jpg"
               alt="技術原理"
-              className="w-full h-auto object-contain rounded-xl"
+              onClick={() => setZoomedImage("tech")}
+              className="w-full h-auto object-contain rounded-xl cursor-zoom-in hover:opacity-95 transition-opacity"
             />
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setZoomedImage(null)}
+        >
+          <div className="relative max-w-full max-h-full">
+            <img
+              src={zoomedImage === "rebound" ? "/回潮效應1.png" : "/技術原理.jpg"}
+              alt="放大圖示"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
+            <button
+              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/80 rounded-full p-2"
+              onClick={() => setZoomedImage(null)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

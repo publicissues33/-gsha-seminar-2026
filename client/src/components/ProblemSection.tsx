@@ -1,4 +1,5 @@
-import { Search, BarChart2, Settings2 } from "lucide-react";
+import { useState } from "react";
+import { Search, BarChart2, Settings2, X } from "lucide-react";
 
 const rciValues = [
   {
@@ -22,6 +23,7 @@ const rciValues = [
 ];
 
 export default function ProblemSection() {
+  const [isZoomed, setIsZoomed] = useState(false);
   return (
     <section
       id="problem"
@@ -47,9 +49,32 @@ export default function ProblemSection() {
           <img
             src="/傳統錯誤循環.png"
             alt="傳統錯誤循環圖"
-            className="w-full h-auto object-contain rounded-xl"
+            onClick={() => setIsZoomed(true)}
+            className="w-full h-auto object-contain rounded-xl cursor-zoom-in hover:opacity-95 transition-opacity"
           />
         </div>
+
+        {/* Lightbox Modal */}
+        {isZoomed && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-zoom-out"
+            onClick={() => setIsZoomed(false)}
+          >
+            <div className="relative max-w-full max-h-full">
+              <img
+                src="/傳統錯誤循環.png"
+                alt="傳統錯誤循環圖 放大"
+                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              />
+              <button
+                className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/80 rounded-full p-2"
+                onClick={() => setIsZoomed(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        )}
 
 
 
