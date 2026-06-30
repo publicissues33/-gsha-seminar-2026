@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1782789904497,
+      "tag": "0000_striped_paladin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1782790048987,
+      "tag": "0001_lean_mindworm",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1782800078226,
+      "tag": "0002_concerned_wong",
+      "breakpoints": true
+    }
+  ]
+}
