@@ -7,6 +7,7 @@ import { createRegistration, listRegistrations, countRegistrations, countTodayRe
 import { TRPCError } from "@trpc/server";
 import { notifyOwner } from "./_core/notification";
 import { sendConfirmationEmail } from "./email";
+import { sdk } from "./_core/sdk";
 
 /** 判斷報名是否已截止（手動關閉 OR 截止日期已過）
  *  deadline 格式：ISO 日期字串 "YYYY-MM-DD"，以台灣時區 (UTC+8) 當天 23:59:59 為截止時刻
@@ -35,6 +36,33 @@ export const appRouter = router({
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
+    login: publicProcedure
+      .input(z.object({
+        username: z.string().min(1, "請輸入帳號"),
+        password: z.string().min(1, "請輸入密碼"),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (input.username === "wetop777" && input.password === "20260806") {
+          const sessionToken = await sdk.signSession({
+            openId: "mock-admin-open-id",
+            appId: process.env.VITE_APP_ID ?? "default",
+            name: "系統管理員",
+          });
+
+          const cookieOptions = getSessionCookieOptions(ctx.req);
+          ctx.res.cookie(COOKIE_NAME, sessionToken, {
+            ...cookieOptions,
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+          });
+
+          return { success: true };
+        } else {
+          throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "帳號或密碼錯誤",
+          });
+        }
+      }),
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });

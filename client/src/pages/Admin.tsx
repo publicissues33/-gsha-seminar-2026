@@ -289,9 +289,21 @@ function RegistrationDeadlineCard() {
 
 // ── Main page ──────────────────────────────────────────────────────────────────
 export default function Admin() {
-  const { user, loading } = useAuth();
+  const { user, loading, refresh } = useAuth();
   const [search, setSearch] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const utils = trpc.useUtils();
+
+  const loginMutation = trpc.auth.login.useMutation({
+    onSuccess: async () => {
+      toast.success("登入成功");
+      await refresh();
+    },
+    onError: (err) => {
+      toast.error(`登入失敗：${err.message}`);
+    },
+  });
 
   const { data: registrations, isLoading: listLoading } = trpc.registration.list.useQuery(
     { search: search || undefined },
@@ -331,32 +343,66 @@ export default function Admin() {
   }
 
   if (!user) {
+    const handleLoginSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!loginUsername.trim()) {
+        toast.error("請輸入帳號");
+        return;
+      }
+      if (!loginPassword.trim()) {
+        toast.error("請輸入密碼");
+        return;
+      }
+      loginMutation.mutate({ username: loginUsername, password: loginPassword });
+    };
+
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-6 px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 flex flex-col items-center gap-4 max-w-sm w-full text-center">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center">
-            <LogIn className="w-8 h-8 text-emerald-700" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex flex-col gap-6 max-w-sm w-full">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mb-2">
+              <LogIn className="w-8 h-8 text-emerald-700" />
+            </div>
+            <h1 className="text-xl font-bold text-gray-800">管理員登入</h1>
+            <p className="text-gray-500 text-sm">請輸入帳號與密碼以存取報名名單管理後台</p>
           </div>
-          <h1 className="text-xl font-bold text-gray-800">管理員登入</h1>
-          <p className="text-gray-500 text-sm">請先登入以存取報名名單管理後台</p>
-          <a
-            href={getLoginUrl()}
-            className="w-full inline-flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
-          >
-            <LogIn className="w-4 h-4" />
-            登入 Manus 帳號
-          </a>
-          {import.meta.env.DEV && (
-            <a
-              href="/api/oauth/mock-login"
-              className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
+
+          <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-semibold text-gray-700">帳號</label>
+              <Input
+                type="text"
+                placeholder="請輸入管理員帳號"
+                value={loginUsername}
+                onChange={(e) => setLoginUsername(e.target.value)}
+                className="w-full text-base"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-semibold text-gray-700">密碼</label>
+              <Input
+                type="password"
+                placeholder="請輸入密碼"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                className="w-full text-base"
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={loginMutation.isPending}
+              className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded-xl transition-colors mt-2"
             >
-              開發人員快速登入 (Mock Admin)
-            </a>
-          )}
-          <Link href="/" className="text-sm text-emerald-700 hover:underline">
-            ← 返回活動頁面
-          </Link>
+              {loginMutation.isPending ? "登入中..." : "登入"}
+            </Button>
+          </form>
+
+          <div className="text-center">
+            <Link href="/" className="text-sm text-emerald-700 hover:underline">
+              ← 返回活動頁面
+            </Link>
+          </div>
         </div>
       </div>
     );
