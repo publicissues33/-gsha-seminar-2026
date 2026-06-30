@@ -72,7 +72,11 @@ export async function sendConfirmationEmail(to: string, registrantName: string, 
   const logFile = path.resolve(logDir, "sent_emails.log");
   const logEntry = `\n========================================\nTime: ${new Date().toISOString()}\nTo: ${to}\nSubject: ${subject}\nContent:\n${textContent}\n========================================\n`;
   
-  fs.appendFileSync(logFile, logEntry, "utf-8");
-  console.log(`[Email] SMTP not configured. Logged confirmation email for ${to} to logs/sent_emails.log`);
+  try {
+    fs.appendFileSync(logFile, logEntry, "utf-8");
+    console.log(`[Email] SMTP not configured. Logged confirmation email for ${to} to logs/sent_emails.log`);
+  } catch (err) {
+    console.error(`[Email] Failed to write email fallback log:`, err);
+  }
   return false;
 }
