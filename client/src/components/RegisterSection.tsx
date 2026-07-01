@@ -204,13 +204,13 @@ export default function RegisterSection() {
         我們將於活動前以 Email 發送確認通知，敬請留意信箱。
       </p>
       <div
-        className="px-6 py-4 rounded-xl"
+        className="px-6 py-4 rounded-xl text-center"
         style={{ background: "var(--green-pale)", border: "1.5px solid rgba(30,92,58,0.15)" }}
       >
         <p className="font-semibold mb-2" style={{ fontSize: "0.875rem", color: "var(--green-deep)" }}>
           活動資訊
         </p>
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center justify-center gap-2 mb-1">
           <span style={{ fontSize: "0.875rem", color: "var(--text-mid)" }}>📅 2026 年 8 月 6 日（週四）</span>
           <span
             style={{
