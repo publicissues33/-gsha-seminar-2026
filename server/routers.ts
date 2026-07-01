@@ -95,10 +95,7 @@ export const appRouter = router({
           content: `收到新的研討會報名申請：\n\n姓名：${input.name}\n公司：${input.company}\n職稱：${input.title}\n電話：${input.phone}\nEmail：${input.email}\n\n報名時間：${new Date().toLocaleString("zh-TW", { timeZone: "Asia/Taipei" })}`,
         });
 
-        // Send confirmation email to registrant in the background (non-blocking)
-        sendConfirmationEmail(input.email, input.name, input).catch((err) => {
-          console.error("[Email] Background send failed:", err);
-        });
+
 
         // Forward to Google Sheet Webhook if configured
         const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK;

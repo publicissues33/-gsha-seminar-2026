@@ -197,11 +197,8 @@ export default function RegisterSection() {
       >
         報名成功！
       </h3>
-      <p className="mb-2" style={{ fontSize: "0.9375rem", color: "var(--text-mid)", lineHeight: 1.7 }}>
+      <p className="mb-6" style={{ fontSize: "0.9375rem", color: "var(--text-mid)", lineHeight: 1.7 }}>
         感謝您報名「環境醫生實務研討會」
-      </p>
-      <p className="mb-6" style={{ fontSize: "0.875rem", color: "var(--text-light)", lineHeight: 1.7 }}>
-        我們將於活動前以 Email 發送確認通知，敬請留意信箱。
       </p>
       <div
         className="px-6 py-4 rounded-xl text-center"
