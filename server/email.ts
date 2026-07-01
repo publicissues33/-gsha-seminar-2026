@@ -50,7 +50,9 @@ export async function sendConfirmationEmail(to: string, registrantName: string, 
         auth: { user, pass },
         tls: {
           rejectUnauthorized: false
-        }
+        },
+        connectionTimeout: 5000, // 5 seconds
+        greetingTimeout: 5000,   // 5 seconds
       });
 
       await transporter.sendMail({
