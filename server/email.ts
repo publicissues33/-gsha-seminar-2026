@@ -48,6 +48,9 @@ export async function sendConfirmationEmail(to: string, registrantName: string, 
         port,
         secure: port === 465,
         auth: { user, pass },
+        tls: {
+          rejectUnauthorized: false
+        }
       });
 
       await transporter.sendMail({
