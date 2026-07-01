@@ -477,6 +477,25 @@ export default function Admin() {
           )}
         </div>
 
+        {/* Email config warning alert */}
+        {!statsLoading && stats && !stats.smtpConfigured && (
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex gap-3 text-amber-800 text-sm">
+            <span className="text-base shrink-0">⚠️</span>
+            <div>
+              <p className="font-semibold mb-0.5">系統提醒：尚未啟用「正式 Email 發信功能」</p>
+              <p className="text-amber-700 leading-relaxed">
+                目前伺服器沒有偵測到發信相關環境變數，系統正處於「模擬寄信」狀態（只會寫入後台日誌，報名者不會收到真實郵件）。
+                若要啟用真實郵件通知，請至 Render 平台設定以下 5 個環境變數：
+                <code className="mx-1 px-1 bg-amber-100 rounded text-xs font-mono font-semibold">SMTP_HOST</code>、
+                <code className="mx-1 px-1 bg-amber-100 rounded text-xs font-mono font-semibold">SMTP_PORT</code>、
+                <code className="mx-1 px-1 bg-amber-100 rounded text-xs font-mono font-semibold">SMTP_USER</code>、
+                <code className="mx-1 px-1 bg-amber-100 rounded text-xs font-mono font-semibold">SMTP_PASS</code>、
+                <code className="mx-1 px-1 bg-amber-100 rounded text-xs font-mono font-semibold">SMTP_FROM</code>。
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Registration closed toggle */}
         <RegistrationClosedCard />
 

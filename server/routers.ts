@@ -155,7 +155,8 @@ export const appRouter = router({
           countRegistrations(),
           countTodayRegistrations(),
         ]);
-        return { total, today };
+        const smtpConfigured = !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+        return { total, today, smtpConfigured };
       }),
   }),
 
