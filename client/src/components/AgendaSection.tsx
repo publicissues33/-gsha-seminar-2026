@@ -31,7 +31,7 @@ const agendaItems = [
   {
     time: "17:20–17:50",
     title: "室內防霉與空調節能的解決方案",
-    speakers: [{ name: "陳睿騏", role: "泉康科技 總經理", initial: "陳" }],
+    speakers: [{ name: "陳睿麒", role: "泉康科技 總經理", initial: "陳" }],
     icon: Users,
     type: "keynote",
     description: "WETOP PICT 技術實務應用：打斷發霉與耗能的惡性循環",
