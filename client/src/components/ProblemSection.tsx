@@ -17,7 +17,7 @@ const rciValues = [
   {
     icon: Settings2,
     title: "營運邏輯改善",
-    desc: "提出兼顧節能與防霉的整合方案，將環境品質轉化為可管理的成果",
+    desc: "提出兼顧節能與防黴的整合方案，將環境品質轉化為可管理的成果",
     color: "#34a85a",
   },
 ];
@@ -37,7 +37,7 @@ export default function ProblemSection() {
           <h2 className="text-section-title leading-snug max-w-2xl mx-auto">
             多數空間通過綠建築評估，
             <br className="hidden sm:block" />
-            為何營運後仍面臨發霉與客訴？
+            為何營運後仍面臨發黴與客訴？
           </h2>
           <p className="mt-4 text-body max-w-xl mx-auto">
             紙上合格與實際體驗之間，存在一道被忽視的鴻溝

@@ -16,7 +16,7 @@ export default function SolutionSection() {
           <h2 className="text-section-title leading-snug max-w-2xl mx-auto">
             從根源阻斷濕氣：
             <br className="hidden sm:block" />
-            室內防霉與空調節能的整合服務解方
+            室內防黴與空調節能的整合服務解方
           </h2>
         </div>
 
@@ -28,7 +28,7 @@ export default function SolutionSection() {
           >
             <p className="text-badge text-green-200 uppercase mb-1">回潮效應 Moisture Rebound</p>
             <h3 className="text-xl font-bold text-white leading-snug">
-              打斷發霉與耗能的惡性循環
+              打斷發黴與耗能的惡性循環
             </h3>
           </div>
           <div className="p-7 flex justify-center bg-white">
@@ -61,14 +61,14 @@ export default function SolutionSection() {
                 WETOP PICT 技術
               </p>
               <h3 className="text-xl font-bold" style={{ color: "var(--green-deep)" }}>
-                主動式淨化技術，從根源抑制霉菌生長
+                主動式淨化技術，從根源抑制黴菌生長
               </h3>
             </div>
           </div>
           <div className="flex justify-center bg-white/50 p-4 rounded-xl border border-gray-100">
             <img
-              src="/技術原理.jpg"
-              alt="技術原理"
+              src="/根源抑制霉菌生長.png"
+              alt="根源抑制黴菌生長"
               onClick={() => setZoomedImage("tech")}
               className="w-full h-auto object-contain rounded-xl cursor-zoom-in hover:opacity-95 transition-opacity"
             />
@@ -84,7 +84,7 @@ export default function SolutionSection() {
         >
           <div className="relative max-w-full max-h-full">
             <img
-              src={zoomedImage === "rebound" ? "/回潮效應1.png" : "/技術原理.jpg"}
+              src={zoomedImage === "rebound" ? "/回潮效應1.png" : "/根源抑制霉菌生長.png"}
               alt="放大圖示"
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
             />
